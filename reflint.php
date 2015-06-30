@@ -58,6 +58,7 @@ $PP = new PhpParser\PrettyPrinter\Standard;
 
 $errors = array();
 $source = array();
+$args = array();
 
 foreach (array_slice($argv,1) as $arg) {
 	if ($arg === "-d" || $arg == "--dump") {
@@ -75,7 +76,17 @@ foreach (array_slice($argv,1) as $arg) {
 		echo "--recurse|-r   Search directories in command line arguments for files ending in .php recursively and lint them all.\n";
 		continue;
 	}
+	array_push($args, $arg);
+}
 
+if ($OPTIONS['recurse'] && count($args) == 0) {
+	array_push($args, ".");
+} else {
+	echo "No files.\n";
+	exit(3);
+}
+
+foreach ($args as $arg) {
 	if ($OPTIONS['recurse']) {
 		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($arg));
 		$files = new RegexIterator($files, '/\.php$/');
@@ -96,8 +107,7 @@ foreach (array_slice($argv,1) as $arg) {
 		$source[$arg] = $code;
 }
 
-
-if (sizeof($errors) !== 0) {
+if (count($errors) !== 0) {
 	file_put_contents('php://stderr', implode($errors,"\n")."\nAborted.\n");
 	exit(1);
 }
@@ -107,7 +117,7 @@ foreach ($source as $file => $code) {
 		$errors[] = $l;
 }
 
-if (sizeof($errors) !== 0) {
+if (count($errors) !== 0) {
 	file_put_contents('php://stderr', implode($errors,"\n")."\nThere were syntax errors.\n");
 	exit(2);
 }
