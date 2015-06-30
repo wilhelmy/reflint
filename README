@@ -1,0 +1,26 @@
+php-reflint
+===========
+
+A linter that finds runtime references which were removed from the official PHP
+Syntax in php 5.4 after having been deprecated for a while. We use this for
+upgrading our legacy code to new PHP versions.
+
+Based on PHP-Parser by Nikita Popov.
+
+Installation and Usage
+----------------------
+
+Install PHP-Parser as documented here:
+https://github.com/nikic/PHP-Parser/blob/1.x/doc/1_Installation.markdown
+
+Run
+
+php reflint.php -r /path/to/search/recursively/for/files/ending/in/dotphp
+
+or
+
+php reflint.php list.php of.php paths/to/single.php files.php
+
+For more help, try
+
+php reflint.php --help

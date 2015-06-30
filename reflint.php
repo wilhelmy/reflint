@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 // See https://github.com/nikic/PHP-Parser/blob/1.x/doc/2_Usage_of_basic_components.markdown
