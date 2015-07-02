@@ -81,7 +81,7 @@ foreach (array_slice($argv,1) as $arg) {
 
 if ($OPTIONS['recurse'] && count($args) == 0) {
 	array_push($args, ".");
-} else {
+} elseif (count($args) == 0) {
 	echo "No files.\n";
 	exit(3);
 }
@@ -118,6 +118,6 @@ foreach ($source as $file => $code) {
 }
 
 if (count($errors) !== 0) {
-	file_put_contents('php://stderr', implode($errors,"\n")."\nThere were syntax errors.\n");
+	file_put_contents('php://stderr', "Syntax Errors:\n============\n".implode($errors,"\n"));
 	exit(2);
 }
