@@ -147,3 +147,5 @@ if (count($errors) !== 0) {
 	file_put_contents('php://stderr', "Syntax Errors:\n============\n".implode($errors,"\n"));
 	exit(2);
 }
+
+exit(0);
